@@ -1,0 +1,70 @@
+version: '2'
+services:
+  web:
+    image: odoo:18.0
+    depends_on:
+      - db15
+    ports:
+      - "8069:8069"
+    volumes:
+      - odoo-web-data:/var/lib/odoo
+      - ./config18:/etc/odoo
+      - ./addons18:/mnt/extra-addons
+    environment:
+      - HOST=db15
+      - USER=odoo
+      - PASSWORD=odoo
+      - DATABASE=postgres
+
+  web2:
+    image: odoo:15.0
+    depends_on:
+      - db10
+    ports:
+      - "8070:8069"
+    volumes:
+      - odoo-web2-data:/var/lib/odoo
+      - ./config15:/etc/odoo
+      - ./addons15:/mnt/extra-addons
+    environment:
+      - HOST=db10
+      - USER=odoo
+      - PASSWORD=odoo
+      - DATABASE=postgres
+
+  db15:
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - odoo-db15-data:/var/lib/postgresql/data/pgdata
+
+  db10:
+    image: postgres:10
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - odoo-db10-data:/var/lib/postgresql/data/pgdata
+
+  portainer:
+    image: portainer/portainer
+    container_name: portainer
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    restart: always
+
+volumes:
+  odoo-web-data:
+  odoo-web2-data:
+  odoo-db15-data:
+  odoo-db10-data:
+  portainer_data:
