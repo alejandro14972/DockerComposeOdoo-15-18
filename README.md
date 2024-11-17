@@ -1,4 +1,4 @@
-# Odoo:15 & 18 + postgress:15 $ 10 Docker Compose
+# Odoo:15 & 18 + postgress:15 & 10 Docker Compose
 
 ## Deployment
 ```bash
