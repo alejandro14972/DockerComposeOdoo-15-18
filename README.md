@@ -2,7 +2,7 @@
 
 ## Deployment
 ```bash
-git clone https://github.com/alejandro14972/DockerCompose-odoo.git
+git clone https://github.com/alejandro14972/DockerComposeOdoo-15-18.git
 cd odoo-docker-compose
 docker-compose up -d
 ```
